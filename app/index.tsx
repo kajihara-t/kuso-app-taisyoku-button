@@ -7,6 +7,8 @@ const { width } = Dimensions.get('window');
 
 export default function App() {
     const [scale] = useState(new Animated.Value(1));
+    const [glassOpacity] = useState(new Animated.Value(1));
+    const [isGlassBroken, setIsGlassBroken] = useState(false);
 
     const handlePressIn = () => {
         Animated.spring(scale, {
@@ -32,6 +34,17 @@ export default function App() {
         Linking.openURL(`tel:${Config.PHONE_NUMBER}`);
     };
 
+    const handleGlassBreak = () => {
+        if (Platform.OS !== 'web') {
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        }
+        Animated.timing(glassOpacity, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+        }).start(() => setIsGlassBroken(true));
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.warningStripes}>
@@ -41,19 +54,34 @@ export default function App() {
                 ))}
             </View>
 
-            <Animated.View style={[styles.buttonContainer, { transform: [{ scale }] }]}>
-                <TouchableOpacity
-                    activeOpacity={1}
-                    onPressIn={handlePressIn}
-                    onPressOut={handlePressOut}
-                    onPress={handlePress}
-                    style={styles.button}
-                >
-                    <View style={styles.innerButton}>
-                        <Text style={styles.buttonText}>退職</Text>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={styles.buttonWrapper}>
+                <Animated.View style={[styles.buttonContainer, { transform: [{ scale }] }]}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        onPressIn={handlePressIn}
+                        onPressOut={handlePressOut}
+                        onPress={handlePress}
+                        style={styles.button}
+                        disabled={!isGlassBroken}
+                    >
+                        <View style={styles.innerButton}>
+                            <Text style={styles.buttonText}>退職</Text>
+                        </View>
+                    </TouchableOpacity>
+                </Animated.View>
+
+                {!isGlassBroken && (
+                    <Animated.View style={[styles.glassOverlay, { opacity: glassOpacity }]}>
+                        <TouchableOpacity
+                            activeOpacity={1}
+                            onPress={handleGlassBreak}
+                            style={styles.glassTouchable}
+                        >
+                            <View style={styles.glassReflection} />
+                        </TouchableOpacity>
+                    </Animated.View>
+                )}
+            </View>
 
             <Text style={styles.disclaimer}>※これはジョークアプリです。{"\n"}実際の退職代行には繋がりません。</Text>
         </View>
@@ -107,6 +135,46 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 20,
         elevation: 10,
+    },
+    buttonWrapper: {
+        width: width * 0.8,
+        height: width * 0.8,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    glassOverlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        borderRadius: width * 0.4,
+        borderWidth: 2,
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+    },
+    glassTouchable: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    glassReflection: {
+        position: 'absolute',
+        top: -50,
+        left: -50,
+        width: 200,
+        height: 200,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        transform: [{ rotate: '45deg' }],
+    },
+    glassText: {
+        color: 'rgba(255, 255, 255, 0.8)',
+        fontSize: 20,
+        fontWeight: 'bold',
+        letterSpacing: 2,
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 5,
     },
     button: {
         width: '100%',
