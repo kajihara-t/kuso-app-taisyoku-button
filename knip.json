@@ -1,0 +1,15 @@
+{
+    "entry": [
+        "app/**/*.{ts,tsx,js,jsx}",
+        "scripts/**/*.js"
+    ],
+    "project": [
+        "**/*.{ts,tsx,js,jsx}"
+    ],
+    "ignore": [
+        "**/*.d.ts"
+    ],
+    "ignoreDependencies": [
+        "expo-router"
+    ]
+}
