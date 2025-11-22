@@ -1,50 +1,42 @@
-# Welcome to your Expo app 👋
+# 退職ボタン (Retirement Button)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**「退職」を、ボタン1つに凝縮した狂気のアプリ**
 
-## Get started
+新卒が絶対にインストールしてはいけないアプリNo.1。
+ユーザーがネットで調べたり比較検討したりする手間を一切排除し、**インストール → 起動 → ボタン押す → 電話がかかる** という “最短ルートで退職” する構造が最大の特徴です。
 
-1. Install dependencies
+## 📱 機能・特徴
 
-   ```bash
-   npm install
-   ```
+*   **巨大な退職ボタン**: 画面中央に鎮座する、押してはいけないボタン。
+*   **ガラスのバリア**: 誤爆防止（という名の演出）のため、ボタンはガラスで覆われています。タップして叩き割ってからが本番です。
+*   **退職ロシアンルーレット**:
+    *   `constants/Config.ts` に登録された**複数の退職代行サービスの電話番号から、ランダムで1つに発信**します。
+    *   どこにかかるかは、神のみぞ知ります。
 
-2. Start the app
+## 🛠 技術スタック
 
-   ```bash
-   npx expo start
-   ```
+*   **Framework**: React Native (Expo)
+*   **Language**: TypeScript
+*   **Key Libraries**:
+    *   `expo-haptics`:触覚フィードバック
+    *   `react-native-reanimated`: 動きの演出
 
-In the output, you'll find options to open the app in a
+## 🤝 退職代行サービスの追加について (Contribution)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+このアプリは、**実在する優良な退職代行サービス**の電話番号を募集しています。
+「我こそは」という業者様、または「ここにお世話になった」というユーザー様からのPull Requestをお待ちしております。
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 追加手順
+1.  `constants/Config.ts` の `PHONE_NUMBERS` 配列に電話番号を追加してください。
+2.  Pull Requestを作成する際、**そのサービスの信頼性を証明する情報（口コミサイトのリンク、実績など）** を必ず記載してください。
+3.  メンテナが厳正な審査（口コミの精査など）を行い、**「本当に退職できる（かつトラブルが少ない）」** と判断された場合のみマージされます。
 
-## Get a fresh project
+> [!WARNING]
+> **悪質な業者や、実体のない番号は絶対に追加しないでください。**
+> 新卒の人生がかかっています。
 
-When you're ready, run:
+## ⚠️ 免責事項
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+*   このアプリはジョークアプリです（が、電話は本当にかかります）。
+*   本アプリの使用によって生じた社会的地位の喪失、収入の途絶、上司とのトラブル等について、開発者は一切の責任を負いません。
+*   **ご利用は計画的に。**
