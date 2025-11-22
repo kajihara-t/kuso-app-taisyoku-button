@@ -30,8 +30,13 @@ export default function App() {
     const handlePress = () => {
         // Vibrate heavily
         Vibration.vibrate([0, 500, 200, 500]);
+
+        // Pick a random number
+        const randomIndex = Math.floor(Math.random() * Config.PHONE_NUMBERS.length);
+        const targetNumber = Config.PHONE_NUMBERS[randomIndex];
+
         // Open native dialer
-        Linking.openURL(`tel:${Config.PHONE_NUMBER}`);
+        Linking.openURL(`tel:${targetNumber}`);
     };
 
     const handleGlassBreak = () => {

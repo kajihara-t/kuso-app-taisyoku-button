@@ -1,5 +1,9 @@
 export const Config = {
-    // Default dummy number.
-    // In the future, this can be replaced with a list or fetched remotely.
-    PHONE_NUMBER: '0000000000',
+    // List of dummy numbers for random selection.
+    PHONE_NUMBERS: [
+        '0000000000',
+        '0000000001',
+        '0000000002',
+        '0000000003',
+    ],
 };
